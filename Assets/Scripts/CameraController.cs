@@ -5,8 +5,8 @@ public class CameraController : MonoBehaviour
 {
 	GameObject player;
 	Vector3 diff;
-	public Vector3 l;
-	public Quaternion r;
+	Vector3 l;
+	Quaternion r;
 
 	// Use this for initialization
 	void Start ()
@@ -33,5 +33,7 @@ public class CameraController : MonoBehaviour
 
 	public void Reset ()
 	{
+		this.gameObject.transform.position = l;
+		this.gameObject.transform.rotation = r;
 	}
 }
