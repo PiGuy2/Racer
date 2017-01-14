@@ -25,6 +25,9 @@ public class PlayerController : NetworkBehaviour
 	// Boosts
 	public float speedBoost;
 
+	// Lerp
+	float startTime;
+
 	void Start ()
 	{
 		int num = Enum.GetNames (typeof(Collectable.Boost)).Length;
@@ -36,6 +39,9 @@ public class PlayerController : NetworkBehaviour
 		}
 
 		speedBoost = 1;
+
+		// Lerp
+		//
 
 		//test
 //		Collectable.Boost b = Collectable.Boost.rocket;
@@ -141,6 +147,14 @@ public class PlayerController : NetworkBehaviour
 	{
 		none,
 		speed
+	}
+
+	public Vector3 Interpolate (Vector3 start, Vector3 end)
+	{
+		Vector3 ret;
+		float rate = 1;
+		ret = Vector3.Lerp (start, end, Time.deltaTime * rate);
+		return Vector3.up;
 	}
 }
 
