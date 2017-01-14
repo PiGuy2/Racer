@@ -11,12 +11,15 @@ public class CameraController : MonoBehaviour
 	public float curR;
 	public float lastR;
 	Vector3 n;
+	bool sb;
+	bool s;
 
 	// Use this for initialization
 	void Start ()
 	{
 		l = this.gameObject.transform.position;
 		r = this.gameObject.transform.rotation;
+		s = false;
 	}
 	
 	// Update is called once per frame
@@ -36,12 +39,16 @@ public class CameraController : MonoBehaviour
 
 	void LateUpdate ()
 	{
-		float desiredAngle = player.transform.eulerAngles.y + 90;
-		Quaternion rotation = Quaternion.Euler (0, desiredAngle, 0);
-		n = player.transform.position - (rotation * diff);
-		n.y += 7;
-		transform.position = n;
-		transform.LookAt (player.transform);
+		if (s) {
+			float desiredAngle = player.transform.eulerAngles.y + 90;
+			Quaternion rotation = Quaternion.Euler (0, desiredAngle, 0);
+			n = player.transform.position - (rotation * diff);
+			n.y += 7;
+			transform.position = n;
+			transform.LookAt (player.transform);
+		} else if (sb) {
+			s = true;
+		}
 	}
 
 	public void Follow (GameObject followObject)
@@ -50,6 +57,7 @@ public class CameraController : MonoBehaviour
 		diff = this.gameObject.transform.position - player.transform.position;
 		ro = followObject.transform.rotation.y;
 		lastR = ro;
+		sb = true;
 	}
 
 	public void Reset ()
